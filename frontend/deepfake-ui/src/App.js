@@ -180,7 +180,7 @@ export default function App() {
           background: "linear-gradient(135deg, #ffffff, #8b5cf6, #3b82f6)",
           WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"
         }}>
-          Detect Deepfakes Instantly
+          Harshit's Deepfake Detector
         </h1>
         <p style={{ color: "#888", fontSize: "16px", maxWidth: "500px", margin: "0 auto 30px" }}>
           Upload any image and our AI will analyze it for signs of digital manipulation
@@ -192,9 +192,9 @@ export default function App() {
           gap: "40px", flexWrap: "wrap"
         }}>
           {[
-            { value: "95%+", label: "Model Accuracy" },
-            { value: "CNN+ViT", label: "Hybrid Architecture" },
-            { value: "140K+", label: "Images Trained" },
+            { value: "83%", label: "Model Accuracy" },
+            { value: "EfficientNet+ViT", label: "Hybrid Architecture" },
+            { value: "300K+", label: "Images Trained" },
             { value: "Grad-CAM", label: "Explainable AI" }
           ].map((stat, i) => (
             <div key={i} style={{ textAlign: "center" }}>
