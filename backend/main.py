@@ -15,7 +15,11 @@ app = FastAPI(title="Deepfake Detection API", version="1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://deepfake-detector-iota.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,7 +34,7 @@ app.mount("/heatmaps", StaticFiles(directory=HEATMAP_DIR), name="heatmaps")
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Loading model on {device}...")
-MODEL_WEIGHTS = "weights/best_model.pth"
+MODEL_WEIGHTS = "weights/best_model_v3.pth"
 weights = MODEL_WEIGHTS if os.path.exists(MODEL_WEIGHTS) else None
 model = get_model(device=device, weights_path=weights)
 print("Model loaded successfully.")
@@ -55,10 +59,10 @@ async def detect_deepfake(file: UploadFile = File(...)):
         shutil.copyfileobj(file.file, buffer)
 
     try:
-        result = predict(file_path, model, device=device)
+        result = predict(file_path, model, device=str(device))
         heatmap_path = generate_gradcam(
             model, file_path,
-            output_dir=HEATMAP_DIR, device=device
+            output_dir=HEATMAP_DIR, device=str(device)
         )
         heatmap_url = f"/heatmaps/{os.path.basename(heatmap_path)}"
 

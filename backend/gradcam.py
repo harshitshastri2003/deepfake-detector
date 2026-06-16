@@ -20,18 +20,20 @@ class GradCAM:
     def _backward_hook(self, module, grad_input, grad_output):
         self.gradients = grad_output[0].detach()
 
-    def generate(self, input_tensor, class_idx=None):
+    def generate(self, input_tensor):
         self.model.eval()
-        output = self.model(input_tensor)
-        if class_idx is None:
-            class_idx = output.argmax(dim=1).item()
+        output = self.model(input_tensor)  # shape: [1, 1]
         self.model.zero_grad()
-        target_score = output[0, class_idx]
+
+        # Single sigmoid output — backprop through it directly
+        target_score = torch.sigmoid(output[0, 0])
         target_score.backward()
+
         pooled_gradients = torch.mean(self.gradients, dim=[0, 2, 3])
         activations = self.activations[0]
         for i in range(activations.shape[0]):
             activations[i, :, :] *= pooled_gradients[i]
+
         heatmap = torch.mean(activations, dim=0).cpu().numpy()
         heatmap = np.maximum(heatmap, 0)
         if heatmap.max() > 0:
