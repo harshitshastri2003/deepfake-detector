@@ -282,18 +282,13 @@ export default function App() {
 
           {result && !loading && (
             <>
-              {/* Result Badge */}
               <div style={{
                 width: "100%",
-                background: isReal
-                  ? "rgba(34,197,94,0.1)"
-                  : "rgba(239,68,68,0.1)",
+                background: isReal ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)",
                 border: `1px solid ${isReal ? "rgba(34,197,94,0.4)" : "rgba(239,68,68,0.4)"}`,
                 borderRadius: "16px", padding: "20px",
                 textAlign: "center",
-                boxShadow: isReal
-                  ? "0 0 30px rgba(34,197,94,0.15)"
-                  : "0 0 30px rgba(239,68,68,0.15)"
+                boxShadow: isReal ? "0 0 30px rgba(34,197,94,0.15)" : "0 0 30px rgba(239,68,68,0.15)"
               }}>
                 <div style={{ fontSize: "32px", marginBottom: "8px" }}>
                   {isReal ? "✅" : "🚨"}
@@ -314,7 +309,6 @@ export default function App() {
                 <div style={{ color: "#888", fontSize: "13px" }}>confidence</div>
               </div>
 
-              {/* Confidence Bar */}
               <div style={{ width: "100%" }}>
                 <div style={{
                   display: "flex", justifyContent: "space-between",
@@ -337,7 +331,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Donut Chart */}
               <DonutChart
                 real={result.probabilities.Real}
                 fake={result.probabilities.Fake}
@@ -366,7 +359,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Heatmap Section */}
+      {/* Heatmap */}
       {result?.heatmap && (
         <div style={{
           maxWidth: "1100px", margin: "0 auto 40px",
@@ -385,11 +378,7 @@ export default function App() {
           <p style={{ color: "#666", fontSize: "13px", margin: "0 0 20px" }}>
             Highlighted regions show where the model focused to make its decision
           </p>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "20px"
-          }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
             <div style={{ textAlign: "center" }}>
               <p style={{ color: "#888", fontSize: "13px", marginBottom: "10px" }}>Original</p>
               <img src={preview} alt="original" style={{
