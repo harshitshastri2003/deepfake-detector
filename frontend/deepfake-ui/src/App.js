@@ -192,9 +192,9 @@ export default function App() {
           gap: "40px", flexWrap: "wrap"
         }}>
           {[
-            { value: "83%", label: "Model Accuracy" },
+            { value: "97%", label: "Model Accuracy" },
             { value: "EfficientNet+ViT", label: "Hybrid Architecture" },
-            { value: "300K+", label: "Images Trained" },
+            { value: "550K+", label: "Images Trained" },
             { value: "Grad-CAM", label: "Explainable AI" }
           ].map((stat, i) => (
             <div key={i} style={{ textAlign: "center" }}>
